@@ -1,9 +1,19 @@
-group 'com.poc.camunda'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+
+group 'com.poc'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 buildscript {
     repositories {
         jcenter()
+        maven { url "http://repo.spring.io/libs-release" }
+        mavenLocal()
+        mavenCentral()
     }
 
     dependencies {
@@ -11,15 +21,17 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'spring-boot'
-apply plugin: 'idea'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 repositories {
     jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+jar {
+    baseName = 'poc-camunda'
+    version =  '1.0-SNAPSHOT'
 }
 
 configurations {
@@ -28,12 +40,16 @@ configurations {
 
 dependencies {
     compile 'joda-time:joda-time:2.2'
-    compile 'spring-boot-starter-data-jpa:1.2.5.RELEASE'
-    compile 'spring-boot-starter-hateoas:1.2.5.RELEASE'
-    compile 'spring-boot-starter-integration:1.2.5.RELEASE'
-    compile 'spring-boot-starter-security:1.2.5.RELEASE'
+    compile 'mysql:mysql-connector-java:5.1.6'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.5.RELEASE'
+    compile 'org.springframework.hateoas:spring-hateoas'
+    compile 'org.springframework.boot:spring-boot-starter-integration:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.2.5.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.5.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-jetty:1.2.5.RELEASE'
+
     testCompile 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
